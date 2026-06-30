@@ -34,14 +34,7 @@
   overflow: hidden;
 }
 
-.vision-track {
-  display: flex;
-  transition: transform 0.8s ease;
-  will-change: transform;
-}
-
 .vision-slide {
-  flex: 0 0 100%;
   position: relative;
   display: block;
   min-width: 0;

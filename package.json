@@ -16,6 +16,7 @@
     "@fontsource/roboto": "^5.2.10",
     "@fontsource/roboto-flex": "^5.2.8",
     "astro": "^6.4.2",
-    "sharp": "^0.35.2"
+    "sharp": "^0.35.2",
+    "swiper": "^14.0.0"
   }
 }

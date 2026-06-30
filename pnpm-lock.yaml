@@ -23,6 +23,9 @@ importers:
       sharp:
         specifier: ^0.35.2
         version: 0.35.2
+      swiper:
+        specifier: ^14.0.0
+        version: 14.0.0
 
 packages:
 
@@ -1405,6 +1408,10 @@ packages:
     resolution: {integrity: sha512-XDpWUOPC6FEibaLzjfe0ucaV0YrOjYotGJO1WpF0Zd+n6ZGEQUsSugaoLq9QkEZtAfQIxT42UChcssDVPP3+/w==}
     engines: {node: '>=16'}
     hasBin: true
+
+  swiper@14.0.0:
+    resolution: {integrity: sha512-F6DXjC+GKt8WGvutu+35FIZO9iZkde+XxDwFqfw0tlFijDwfG7DikHYUiFQKqIYEp25q8TQSqI3Nh2+bHxs2uA==}
+    engines: {node: '>= 4.7.0'}
 
   tiny-inflate@1.0.3:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
@@ -3207,6 +3214,8 @@ snapshots:
       csso: 5.0.5
       picocolors: 1.1.1
       sax: 1.6.0
+
+  swiper@14.0.0: {}
 
   tiny-inflate@1.0.3: {}
 
