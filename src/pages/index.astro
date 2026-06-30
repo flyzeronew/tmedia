@@ -257,6 +257,11 @@ const newsItems = [
       prevEl: '.owl-prev',
       nextEl: '.owl-next',
     },
+    on: {
+      init: (swiper) => {
+        (swiper.el as HTMLElement).style.opacity = '1';
+      },
+    },
   });
 
   // ── Infinite scroll ──────────────────────────────────────────

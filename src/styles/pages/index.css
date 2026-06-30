@@ -29,9 +29,11 @@
    ============================================================ */
 .vision {
   width: 100%;
+  aspect-ratio: 16 / 9;
   margin: 0 auto 30px;
   position: relative;
   overflow: hidden;
+  opacity: 0;
 }
 
 .vision-slide {
@@ -122,6 +124,7 @@
 .owl-dots {
   margin-top: 8px;
   text-align: center;
+  min-height: 16px; /* 預留圓點高度（10px + padding 3px×2），避免 Swiper 生成後產生 CLS */
 }
 
 .owl-dot {
