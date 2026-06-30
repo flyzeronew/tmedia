@@ -17,6 +17,20 @@ body, html {
   color: #000;
 }
 
+html::-webkit-scrollbar {
+  width: 3px;
+  background: #fff;
+}
+html::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0;
+  background-color: #fff;
+}
+html::-webkit-scrollbar-thumb {
+  background: #000;
+}
+
 ul, li, p {
   margin: 0;
   padding: 0;
