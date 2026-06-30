@@ -300,6 +300,33 @@ const newsItems = [
     startTimer();
   }, { passive: true });
 
+  // ── Mouse drag support (PC) ───────────────────────────────────
+  let mouseStartX = 0;
+  let isDragging = false;
+
+  track.addEventListener('mousedown', (e) => {
+    mouseStartX = e.clientX;
+    isDragging = true;
+    track.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    track.style.cursor = 'grab';
+    const dx = e.clientX - mouseStartX;
+    if (Math.abs(dx) < 30) return;
+    goTo(dx < 0 ? current + 1 : current - 1);
+    startTimer();
+  });
+
+  // 拖曳時防止點擊連結跳頁
+  track.addEventListener('click', (e) => {
+    if (Math.abs(e.clientX - mouseStartX) >= 30) e.preventDefault();
+  }, true);
+
+  track.style.cursor = 'grab';
+
   // ── Infinite scroll ──────────────────────────────────────────
   interface NewsItem { href: string; img: string; title: string; time: string; }
 
