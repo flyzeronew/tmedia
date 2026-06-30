@@ -432,6 +432,26 @@
   }
 }
 
+/* 640px and below: 1st, 7th, 13th... articles keep full-width PC image layout */
+@media (max-width: 640px) {
+  .news_now2 .list li:nth-child(6n+1) .box {
+    display: block;
+  }
+
+  .news_now2 .list li:nth-child(6n+1) .img {
+    width: 100%;
+  }
+
+  .news_now2 .list li:nth-child(6n+1) .txt_box {
+    width: 100%;
+    padding: 8px 10px;
+  }
+
+  .news_now2 .list li:nth-child(6n+1) .txt {
+    height: 40px;
+  }
+}
+
 /* ── Sidebar ad units ── */
 .sidebar_div {
   margin-bottom: 54px;
