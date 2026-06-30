@@ -88,12 +88,12 @@
   width: 60px;
   height: 60px;
   position: absolute;
-  top: 40%;
+  top: 45%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.8);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 40%;
+  background-size: 70%;
   border: none;
   cursor: pointer;
   z-index: 10;
@@ -323,7 +323,7 @@
 
   .owl-prev,
   .owl-next {
-    top: 45%;
+    top: 50%;
     width: 50px;
     height: 50px;
   }
@@ -421,7 +421,7 @@
   .owl-next {
     width: 35px;
     height: 35px;
-    top: 35%;
+    top: 45%;
   }
 }
 
