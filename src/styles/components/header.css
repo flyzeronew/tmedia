@@ -25,6 +25,12 @@ header {
   background-color: #F6EE33;
 }
 
+.app_div .hd-frame {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .logo_mo_box {
   display: flex;
   align-items: center;
