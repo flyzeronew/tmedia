@@ -1,40 +1,13 @@
-# Astro 練習專案
+# T.Media — TVBS World Taiwan
 
-以 [Astro](https://astro.build) 6.x 建立的靜態網站練習專案，使用繁體中文介面。
+TVBS World Taiwan 新聞網站前端，使用 Astro 6.x 建置的靜態網站。
 
 ## 技術棧
 
-- **Astro 6.x** — 靜態網站框架
-- **TypeScript** — strict 模式
-- **pnpm** — 套件管理器
-- **Fontsource** — 本地字型（Roboto、Roboto Flex、Noto Sans TC）
-
-## 專案結構
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── assets/          # 經 Vite 處理的靜態資源
-│   ├── components/
-│   │   ├── Card.astro
-│   │   ├── Header.astro
-│   │   └── Footer.astro
-│   ├── layouts/
-│   │   └── BaseLayout.astro   # 共用版型，含 OG meta
-│   ├── pages/
-│   │   ├── index.astro
-│   │   ├── about.astro
-│   │   └── blog/
-│   │       ├── index.astro
-│   │       ├── first-post.astro
-│   │       └── second-post.astro
-│   └── styles/
-│       └── global.css
-├── astro.config.mjs
-└── package.json
-```
+- **框架**：[Astro](https://astro.build/) 6.x（Static output）
+- **套件管理**：pnpm
+- **語言**：TypeScript（strict mode）
+- **字型**：Noto Sans TC（via `@fontsource`）、Georgia
 
 ## 常用指令
 
@@ -45,4 +18,44 @@
 | `pnpm build` | 建置正式版到 `./dist/` |
 | `pnpm preview` | 本地預覽建置結果 |
 | `pnpm astro check` | TypeScript 型別檢查 |
-| `pnpm astro add <套件>` | 新增官方整合（如 react、tailwind）|
+
+## 專案結構
+
+```
+src/
+├── layouts/
+│   └── BaseLayout.astro     # 所有頁面共用的 HTML 殼層（含 GPT 廣告初始化）
+├── components/
+│   ├── Header.astro          # Logo + Threads 社群連結
+│   ├── Footer.astro          # 頁尾元件
+│   └── Card.astro            # 可複用卡片元件（/blog 區使用）
+├── pages/
+│   ├── index.astro           # 英文新聞首頁
+│   ├── about.astro
+│   └── blog/
+│       ├── index.astro       # 中文 ESG 部落格列表（Build time fetch）
+│       ├── first-post.astro
+│       └── second-post.astro
+├── styles/
+│   ├── global.css            # 全域 reset 與字型
+│   ├── layouts/base.css
+│   ├── components/           # card / header / footer
+│   └── pages/                # index / blog/index / blog/post
+└── assets/                   # Vite 處理的靜態資源
+```
+
+## 頁面說明
+
+### 首頁（`/`）
+
+英文新聞入口，包含：
+
+- **Hero 輪播**：6 張投影片，每 3 秒自動切換，支援上／下頁按鈕與圓點指示
+- **最新新聞格狀列表**：3 欄排版，透過 `IntersectionObserver` 實作無限捲動，每次載入 9 筆
+- **Google Publisher Tag（GPT）廣告**：側邊欄 300×250 / 300×600 版位
+
+版面為雙欄：主內容區（1060 px）+ 右側欄（300 px），外框最大寬度 1460 px；1024 px 以下側欄隱藏。
+
+### 部落格（`/blog`）
+
+繁體中文 ESG 內容，資料於 SSG Build time 向 `https://api.esg.tvbs.app/api/index-data` 抓取一次，烤進靜態 HTML。API 不可用時各區塊靜默為空。
