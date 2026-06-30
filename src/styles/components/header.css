@@ -1,0 +1,127 @@
+header {
+  background-color: #F6EE33;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.head {
+  position: relative;
+}
+
+/* Shared frame box for header rows */
+.hd-frame {
+  width: 100%;
+  max-width: 1460px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 15px;
+}
+
+/* ---- Mobile logo bar ---- */
+.app_div {
+  display: none;
+  background-color: #F6EE33;
+}
+
+.logo_mo_box {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.logo_mo img {
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ---- Desktop logo bar ---- */
+
+.logo_div .hd-frame {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hd-social {
+  display: flex;
+  align-items: center;
+}
+
+.share ul {
+  display: flex;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.share li {
+  list-style: none;
+  background-color: #000;
+  padding: 4px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.share img {
+  display: block;
+  width: 30px;
+  height: 30px;  
+  transition: opacity 0.2s;
+}
+
+.share a:hover img {
+  opacity: 0.7;
+}
+
+/* ---- Nav bar (empty strip) ---- */
+nav {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  min-height: 8px;
+}
+
+/* ======= RWD ======= */
+
+/* 1280px and below: switch to mobile header */
+@media (max-width: 1279px) {
+  .logo_div {
+    display: none;
+  }
+
+  .app_div {
+    display: block;
+  }
+}
+
+/* 1023px and below */
+@media (max-width: 1023px) {
+  .menu_list li a {
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+}
+
+/* 767px and below */
+@media (max-width: 767px) {
+
+  .menu_list li a {
+    padding: 7px 10px;
+    font-size: 14px;
+  }
+}

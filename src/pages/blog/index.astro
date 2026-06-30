@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import '../../styles/pages/blog/index.css';
+
+interface ArticleGenre {
+  id: number;
+  name: string;
+}
+
+interface Article {
+  id: number;
+  title: string;
+  cover_img: string;
+  article_genres: ArticleGenre[];
+}
+
+interface IndexHeadline {
+  id: number;
+  is_blank: number;
+  url: string;
+  title: string;
+  description: string;
+  cover_img: string;
+}
+
+interface TipGallery {
+  id: number;
+  image_url: string;
+}
+
+interface Tip {
+  id: number;
+  title: string;
+  genre: number;
+  tip_galleries: TipGallery[];
+}
+
+interface Partner {
+  id: number;
+  name: string;
+  avatar: string;
+  has_detail_page: number;
+  outer_url: string;
+}
+
+interface FocusNews {
+  id: number;
+  title: string;
+  sub_title: string;
+  description: string;
+  cover_img: string;
+  url: string;
+  is_blank: number;
+}
+
+interface Impact {
+  id: number;
+  title: string;
+  description: string;
+  cover_img: string;
+  link_url: string;
+  is_blank: number;
+}
+
+interface IndexData {
+  indexHeadlines: IndexHeadline[];
+  tips: Tip[];
+  articles: Article[];
+  partners: Partner[];
+  marquee: string | null;
+  focusNews: FocusNews[];
+  impact: Impact[];
+}
+
+// SSG：此 fetch 在 build 時於 Node 端執行一次，結果會被烤進靜態 HTML。
+let articles: Article[] = [];
+let headlines: IndexHeadline[] = [];
+let tips: Tip[] = [];
+let partners: Partner[] = [];
+let focusNews: FocusNews[] = [];
+let impact: Impact[] = [];
+let marquee: string | null = null;
+try {
+  const res = await fetch('https://api.esg.tvbs.app/api/index-data');
+  if (res.ok) {
+    const data: IndexData = await res.json();
+    articles = data.articles ?? [];
+    headlines = data.indexHeadlines ?? [];
+    tips = data.tips ?? [];
+    partners = data.partners ?? [];
+    focusNews = data.focusNews ?? [];
+    impact = data.impact ?? [];
+    marquee = data.marquee ?? null;
+  } else {
+    console.error('撈取 ESG API 失敗，HTTP 狀態：', res.status);
+  }
+} catch (e) {
+  console.error('撈取 ESG API 發生錯誤：', e);
+}
+
+const posts = articles.map((article) => ({
+  title: article.title,
+  description: article.article_genres?.[0]?.name ?? '',
+  cover: article.cover_img,
+  href: `/blog/${article.id}`,
+}));
+---
+
+<BaseLayout title="部落格 | Astro 練習">
+  {marquee && <div class="marquee">{marquee}</div>}
+
+  {headlines.length > 0 && (
+    <>
+      <h1>頭條</h1>
+      <div class="posts headlines">
+        {headlines.map((headline) => (
+          <Card
+            title={headline.title}
+            description={headline.description}
+            cover={headline.cover_img}
+            href={headline.url}
+            newTab={headline.is_blank === 1}
+          />
+        ))}
+      </div>
+    </>
+  )}
+
+  {focusNews.length > 0 && (
+    <>
+      <h1>焦點新聞</h1>
+      <div class="posts headlines">
+        {focusNews.map((news) => (
+          <Card
+            title={news.title}
+            description={news.sub_title}
+            cover={news.cover_img}
+            href={news.url}
+            newTab={news.is_blank === 1}
+          />
+        ))}
+      </div>
+    </>
+  )}
+
+  {posts.length > 0 && (
+    <>
+      <h1>永續焦點文章</h1>
+      <div class="posts">
+        {posts.map((post) => (
+          <Card
+            title={post.title}
+            description={post.description}
+            cover={post.cover}
+            href={post.href}
+          />
+        ))}
+      </div>
+    </>
+  )}
+
+  {impact.length > 0 && (
+    <>
+      <h1>影響力</h1>
+      <div class="posts headlines">
+        {impact.map((item) => (
+          <Card
+            title={item.title}
+            description={item.description}
+            cover={item.cover_img}
+            href={item.link_url}
+            newTab={item.is_blank === 1}
+          />
+        ))}
+      </div>
+    </>
+  )}
+
+  {tips.length > 0 && (
+    <>
+      <h1>永續小知識</h1>
+      <div class="posts tips">
+        {tips.map((tip) => (
+          <Card
+            title={tip.title}
+            description=""
+            cover={tip.tip_galleries?.[0]?.image_url}
+          />
+        ))}
+      </div>
+    </>
+  )}
+
+  {partners.length > 0 && (
+    <>
+      <h1>合作夥伴</h1>
+      <div class="partners">
+        {partners.map((partner) => {
+          const hasLink = !!partner.outer_url;
+          const PartnerTag = hasLink ? 'a' : 'div';
+          return (
+            <PartnerTag
+              class="partner"
+              href={hasLink ? partner.outer_url : undefined}
+              target={hasLink ? '_blank' : undefined}
+              rel={hasLink ? 'noopener noreferrer' : undefined}
+            >
+              <img src={partner.avatar} alt={partner.name} loading="lazy" />
+              <span>{partner.name}</span>
+            </PartnerTag>
+          );
+        })}
+      </div>
+    </>
+  )}
+</BaseLayout>

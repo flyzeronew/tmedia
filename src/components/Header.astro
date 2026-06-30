@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import threadsLogo from "../assets/threads-logo.jpg";
+import '../styles/components/header.css';
+---
+<header>
+  <div class="head">
+    <!-- Mobile: logo bar (shown below 1280px) -->
+    <div class="app_div">
+      <div class="hd-frame">
+        <div class="logo_mo_box">
+          <div class="ham_box">
+            <div class="logo_mo">
+              <a href="/">
+                <img
+                  width="85"
+                  height="45"
+                  src="https://cc.t.media/2017news/prd/images/tMedia_logo.png"
+                  alt="T.Media logo"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop: logo + social bar (shown at 1280px+) -->
+    <div class="logo_div">
+      <div class="hd-frame">
+        <div class="logo">
+          <a href="/">
+            <img
+              width="100"
+              height="100"
+              src="https://cc.t.media/2017news/prd/images/tMedia_logo.png"
+              style="width:100%;height:auto;"
+              alt="T.Media logo"
+            />
+          </a>
+        </div>
+        <div class="hd-social">
+          <div class="share">
+            <ul>
+              <li>
+                <a
+                  href="https://www.threads.net/@tvbsworldtaiwan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Threads"
+                >
+                  <Image src={threadsLogo} alt="Threads" width={32} height={32} loading="lazy" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

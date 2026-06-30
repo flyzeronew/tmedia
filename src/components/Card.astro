@@ -1,0 +1,26 @@
+---
+import '../styles/components/card.css';
+
+interface Props {
+  title: string;
+  description: string;
+  href?: string;
+  cover?: string;
+  newTab?: boolean;
+}
+
+const { title, description, href, cover, newTab } = Astro.props;
+const target = newTab ? '_blank' : undefined;
+const rel = newTab ? 'noopener noreferrer' : undefined;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag class="card" href={href} target={target} rel={rel}>
+  {cover && (
+    <span class="cover">
+      <img src={cover} alt={title} loading="lazy" />
+    </span>
+  )}
+  <h3>{title}</h3>
+  {description && <p>{description}</p>}
+</Tag>

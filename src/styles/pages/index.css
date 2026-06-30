@@ -1,0 +1,456 @@
+/* ============================================================
+   Page layout: article + aside two-column frame
+   ============================================================ */
+.pg-frame {
+  display: flex;
+  align-items: flex-start;
+  gap: 0 100px;
+  width: 1460px;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 15px;
+}
+
+.pg-article {
+  width: 1060px;
+  flex-shrink: 0;
+  margin-bottom: 30px;
+  min-width: 0;
+}
+
+.pg-aside {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   Hero Carousel (.vision)
+   ============================================================ */
+.vision {
+  width: 100%;
+  margin: 0 auto 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vision-track {
+  display: flex;
+  transition: transform 0.8s ease;
+  will-change: transform;
+}
+
+.vision-slide {
+  flex: 0 0 100%;
+  position: relative;
+  display: block;
+  min-width: 0;
+}
+
+.vision .img {
+  line-height: 0;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.vision .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vision h2 {
+  font-weight: 500;
+  margin: 0;
+}
+
+.vision .txt {
+  width: 100%;
+  color: #fff;
+  overflow: hidden;
+  line-height: normal;
+  text-align: center;
+  padding: 10px 0;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  font-size: 30px;
+  background: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.6) 35%, #000 100%);
+}
+
+.vision .txt p {
+  width: 90%;
+  white-space: nowrap;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+/* Carousel arrows */
+.owl-prev,
+.owl-next {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40%;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.owl-prev:hover,
+.owl-next:hover {
+  opacity: 1;
+}
+
+.owl-prev {
+  left: 0;
+  /* Left arrow via SVG data URI */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z'/%3E%3C/svg%3E");
+}
+
+.owl-next {
+  right: 0;
+  /* Right arrow via SVG data URI */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+}
+
+/* Carousel dots */
+.owl-dots {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.owl-dot {
+  display: inline-block;
+  border: none;
+  background: none;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.owl-dot span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  transition: background 0.2s;
+}
+
+.owl-dot.active span {
+  background: #e62320;
+}
+
+/* ============================================================
+   Title section header (.title_div / .title_line)
+   ============================================================ */
+.title_div {
+  padding-top: 10px;
+  margin: 0 0 10px;
+  position: relative;
+  width: 100%;
+  font-weight: 700;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+}
+
+.title_line {
+  display: inline-block;
+  float: left;
+  padding: 0 10px 7px 0;
+  border-bottom: 2px solid #e62320;
+  margin-bottom: -1px;
+}
+
+.title_line p {
+  font-size: 20px;
+  color: #000;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ============================================================
+   Latest News Grid (.news_now2)
+   ============================================================ */
+.news_now2 {
+  overflow: hidden;
+}
+
+.news_now2 .list ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* 3-column grid */
+.news_now2 .list li {
+  list-style: none;
+  width: calc((100% - 45px) / 3);
+  overflow: hidden;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.news_now2 .list li:nth-child(3n) {
+  margin-right: 0;
+}
+
+.news_now2 .list a {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  height: 100%;
+}
+
+.news_now2 .box {
+  background-color: #f5f5f5;
+  height: 100%;
+}
+
+.news_now2 .list .img {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+  aspect-ratio: 16 / 9;
+}
+
+.news_now2 .list .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.news_now2 .list a:hover .img img {
+  transform: scale(1.04);
+}
+
+.news_now2 .list .txt_box {
+  padding: 10px 16px;
+  overflow: hidden;
+}
+
+.news_now2 .list h2 {
+  font-weight: 700;
+  margin: 0;
+}
+
+.news_now2 .list .txt {
+  margin: 0 0 20px;
+  height: 51px;
+  line-height: 26px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  font-size: 18px;
+  word-break: break-word;
+}
+
+.time {
+  font-size: 14px;
+  color: #686868;
+  float: right;
+  padding-bottom: 8px;
+  font-family: "Noto Sans TC", "PingFang SC", sans-serif;
+}
+
+/* ============================================================
+   RWD Breakpoints
+   ============================================================ */
+
+/* Large desktop but narrower than 1460px */
+@media (max-width: 1459px) {
+  .pg-frame {
+    gap: 0 60px;
+  }
+
+  .pg-article {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+}
+
+/* 1023px and below: hide sidebar, full-width article */
+@media (max-width: 1023px) {
+  .pg-aside {
+    display: none;
+  }
+
+  .pg-article {
+    width: 100%;
+    flex: none;
+  }
+
+  .pg-frame {
+    gap: 0;
+  }
+
+  .vision .txt {
+    font-size: 24px;
+  }
+
+  .owl-prev,
+  .owl-next {
+    top: 45%;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* 767px and below: 2-column news grid */
+@media (max-width: 767px) {
+  .news_now2 .list li {
+    width: calc((100% - 15px) / 2);
+    margin-right: 15px;
+    margin-bottom: 15px;
+  }
+
+  .news_now2 .list li:nth-child(3n) {
+    margin-right: 15px;
+  }
+
+  .news_now2 .list li:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  .news_now2 .list .txt {
+    font-size: 16px;
+    line-height: 25px;
+    height: 45px;
+  }
+
+  .vision .txt {
+    font-size: 20px;
+    padding-bottom: 7px;
+  }
+
+  .owl-prev,
+  .owl-next {
+    width: 40px;
+    height: 40px;
+    top: 40%;
+  }
+
+  .title_line p {
+    font-size: 18px;
+  }
+}
+
+/* 640px and below: horizontal card layout (image left + text right) */
+@media (max-width: 640px) {
+  .news_now2 .list ul {
+    display: block;
+  }
+
+  .news_now2 .list li {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .news_now2 .list li:nth-child(3n),
+  .news_now2 .list li:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  .news_now2 .box {
+    display: flex;
+    align-items: center;
+  }
+
+  .news_now2 .list .img {
+    width: 38%;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+  }
+
+  .news_now2 .list .txt_box {
+    width: 60%;
+    padding: 0 10px;
+    overflow: hidden;
+  }
+
+  .news_now2 .list .txt {
+    font-size: 15px;
+    line-height: 20px;
+    height: 40px;
+    margin-bottom: 5px;
+  }
+
+  .time {
+    font-size: 12px;
+    float: none;
+    display: block;
+    margin-top: 4px;
+    padding-bottom: 0;
+  }
+
+  .owl-prev,
+  .owl-next {
+    width: 35px;
+    height: 35px;
+    top: 35%;
+  }
+}
+
+/* ── Sidebar ad units ── */
+.sidebar_div {
+  margin-bottom: 54px;
+  overflow: hidden;
+}
+
+/* ── Infinite scroll loading indicator ── */
+.scroll-loading {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0 10px;
+  width: 100%;
+}
+
+.scroll-spinner {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border: 3px solid #ddd;
+  border-top-color: #e62320;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 414px and below */
+@media (max-width: 414px) {
+  .news_now2 .list .txt {
+    font-size: 16px;
+    line-height: 20px;
+    height: 38px;
+  }
+
+  .time {
+    font-size: 10px;
+  }
+}

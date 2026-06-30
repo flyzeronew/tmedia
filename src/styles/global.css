@@ -1,0 +1,52 @@
+@import "@fontsource/noto-sans-tc/400.css";
+@import "@fontsource/noto-sans-tc/700.css";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, html {
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-family: "Georgia", "Noto Sans TC", "PingFang SC", serif;
+  background-color: #fff;
+  font-size: 18px;
+  color: #000;
+}
+
+ul, li, p {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a:active, a:hover, a:link, a:visited {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #e62320;
+}
+
+img {
+  border: 0;
+}
+
+.img {
+  line-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.img img {
+  width: 100%;
+  height: auto;
+}
+
+.txt {
+  word-break: break-word;
+}

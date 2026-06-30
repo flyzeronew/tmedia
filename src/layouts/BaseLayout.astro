@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import '../styles/layouts/base.css';
+import Header from '../components/Header.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  url?: string;
+  ogImage?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogUrl?: string;
+}
+const { title, description, ogImage, ogTitle, ogDescription, ogUrl } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={ogUrl} />
+    <link rel="icon" href="https://cc.t.media/2017news/prd/images/favicon.ico" type="image/icon" />
+    <title>{title}</title>
+    <!-- Google Publisher Tag -->
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script is:inline>
+      window.googletag = window.googletag || {cmd: []};
+      var ppid;
+      (async function () {
+        try {
+          var ga = document.cookie.split('; ').find(function (r) { return r.startsWith('_ga='); });
+          if (!ga) return;
+          var raw = ga.split('=')[1].split('.').slice(2).join('.');
+          var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+          ppid = Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+        } catch (e) {}
+      })();
+      var news_tvbs_com_tw_pc_index_list1, news_tvbs_com_tw_pc_index_list2;
+      var news_tvbs_com_tw_m_index_list1, news_tvbs_com_tw_m_index_list2, news_tvbs_com_tw_m_index_bottom;
+      googletag.cmd.push(function () {
+        news_tvbs_com_tw_pc_index_list1 = googletag.defineSlot('/21697024903/news.tvbs.com.tw_pc_index_list1', [300, 250], 'news_tvbs_com_tw_pc_index_list1').addService(googletag.pubads());
+        news_tvbs_com_tw_pc_index_list2 = googletag.defineSlot('/21697024903/news.tvbs.com.tw_pc_index_list2', [[300, 250], [300, 600]], 'news_tvbs_com_tw_pc_index_list2').addService(googletag.pubads());
+        news_tvbs_com_tw_m_index_list1  = googletag.defineSlot('/21697024903/news.tvbs.com.tw_m_index_list1',  [[300, 250], [336, 280]], 'news_tvbs_com_tw_m_index_list1').addService(googletag.pubads());
+        news_tvbs_com_tw_m_index_list2  = googletag.defineSlot('/21697024903/news.tvbs.com.tw_m_index_list2',  [[300, 250], [336, 280]], 'news_tvbs_com_tw_m_index_list2').addService(googletag.pubads());
+        news_tvbs_com_tw_m_index_bottom = googletag.defineSlot('/21697024903/news.tvbs.com.tw_m_index_bottom', [[320, 100], [1, 1]],     'news_tvbs_com_tw_m_index_bottom').addService(googletag.pubads());
+        googletag.pubads().collapseEmptyDivs();
+        googletag.pubads().disableInitialLoad();
+        if (ppid) googletag.pubads().setPublisherProvidedId(ppid);
+        googletag.enableServices();
+      });
+      googletag.cmd.push(function () {
+        googletag.pubads().setTargeting('news_channel', 'english');
+      });
+      function detectmob() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <Header />
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
