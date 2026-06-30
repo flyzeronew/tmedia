@@ -238,8 +238,27 @@
   transition: transform 0.3s;
 }
 
-.news_now2 .list a:hover .img img {
-  transform: scale(1.04);
+.overlay-color {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background: transparent;
+  transition:0.3s;
+}
+
+.news_now2 .list a:hover .overlay-color {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.news_now2 .list .txt {
+  transition: color 0.3s linear;
+}
+
+.news_now2 .list a:hover .txt {
+  color: #e62320;
 }
 
 .news_now2 .list .txt_box {
