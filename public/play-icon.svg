@@ -1,0 +1,7 @@
+<svg id="img_vedio_player_midium" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Ellipse_10" data-name="Ellipse 10" stroke="#707070" stroke-width="1" opacity="0.394">
+    <circle cx="25" cy="25" r="25" stroke="none"/>
+    <circle cx="25" cy="25" r="24.5" fill="none"/>
+  </g>
+  <path id="play_circle_outline-24px" d="M24,36.75,35.675,28a1.241,1.241,0,0,0,0-2L24,17.25a1.249,1.249,0,0,0-2,1v17.5A1.249,1.249,0,0,0,24,36.75ZM27,2A25,25,0,1,0,52,27,25.009,25.009,0,0,0,27,2Zm0,45A20,20,0,1,1,47,27,20.027,20.027,0,0,1,27,47Z" transform="translate(-2 -2)" fill="#fff"/>
+</svg>
