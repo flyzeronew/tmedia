@@ -134,6 +134,22 @@ const newsItems = [
         </div>
         <div class="owl-dots"></div>
 
+        <!-- Trending (mobile only) -->
+        <div class="Trending sidebar_div trending-mobile">
+          <div class="title_div">
+            <div class="title_line">
+              <p>Trending</p>
+            </div>
+          </div>
+          <ul>
+            <li><span>1</span><h4><a href="https://t.media/3244961" target="_blank" class="play">New Taipei releases abalone, sea urchins to restore coast</a></h4></li>
+            <li><span>2</span><h4><a href="https://t.media/3244905" target="_blank">Taiwan faces 38°C heat days after wettest June on record</a></h4></li>
+            <li><span>3</span><h4><a href="https://t.media/3241614" target="_blank">New Taipei delegation studies waste tech in Germany</a></h4></li>
+            <li><span>4</span><h4><a href="https://t.media/3240112" target="_blank">Buchholz: Taiwan's chip crown is both a shield and a target</a></h4></li>
+            <li><span>5</span><h4><a href="https://t.media/3238887" target="_blank">Heat wave grips Taiwan as Typhoon Mekkhala moves northward</a></h4></li>
+          </ul>
+        </div>
+
         <!-- Latest News Section -->
         <div class="news_now2">
           <div class="title_div">
@@ -181,6 +197,22 @@ const newsItems = [
     <!-- Sidebar column (desktop only) -->
     <aside class="pg-aside">
       <div class="r_box">
+
+        <!-- Trending -->
+        <div class="Trending sidebar_div">
+          <div class="title_div">
+            <div class="title_line">
+              <p>Trending</p>
+            </div>
+          </div>
+          <ul>
+            <li><span>1</span><h4><a href="https://t.media/3244961" target="_blank" class="play">New Taipei releases abalone, sea urchins to restore coast</a></h4></li>
+            <li><span>2</span><h4><a href="https://t.media/3244905" target="_blank">Taiwan faces 38°C heat days after wettest June on record</a></h4></li>
+            <li><span>3</span><h4><a href="https://t.media/3241614" target="_blank">New Taipei delegation studies waste tech in Germany</a></h4></li>
+            <li><span>4</span><h4><a href="https://t.media/3240112" target="_blank">Buchholz: Taiwan's chip crown is both a shield and a target</a></h4></li>
+            <li><span>5</span><h4><a href="https://t.media/3238887" target="_blank">Heat wave grips Taiwan as Typhoon Mekkhala moves northward</a></h4></li>
+          </ul>
+        </div>
 
         <!-- PC Ad 1: 300×250 -->
         <div class="sidebar_div">
@@ -321,13 +353,18 @@ const newsItems = [
 
 <script is:inline>
 (function () {
+  var aside = document.querySelector('.pg-aside');
+  var rBox  = document.querySelector('.r_box');
+  var savedLeft  = 0;
+  var savedWidth = 0;
+
   function updateSidebar() {
     if (window.innerWidth < 1024) return;
+    if (!rBox || !aside) return;
 
-    var rBox    = document.querySelector('.r_box');
     var article = document.querySelector('.pg-article');
     var header  = document.querySelector('header');
-    if (!rBox || !article || !header) return;
+    if (!article || !header) return;
 
     var rBoxH    = rBox.offsetHeight;
     var headerH  = header.offsetHeight;
@@ -340,16 +377,33 @@ const newsItems = [
       rBoxH > winH - headerH - 100 &&
       scrollTop + winH >= totalH
     ) {
+      if (rBox.style.position !== 'fixed') {
+        var rect   = aside.getBoundingClientRect();
+        savedLeft  = rect.left;
+        savedWidth = aside.offsetWidth;
+      }
       rBox.style.position = 'fixed';
       rBox.style.bottom   = '0';
+      rBox.style.left     = savedLeft + 'px';
+      rBox.style.width    = savedWidth + 'px';
     } else {
-      rBox.style.position = 'relative';
+      rBox.style.position = '';
       rBox.style.bottom   = '';
+      rBox.style.left     = '';
+      rBox.style.width    = '';
     }
   }
 
-  window.addEventListener('scroll', updateSidebar);
-  window.addEventListener('resize', updateSidebar);
+  window.addEventListener('scroll', updateSidebar, { passive: true });
+  window.addEventListener('resize', function () {
+    rBox.style.position = '';
+    rBox.style.bottom   = '';
+    rBox.style.left     = '';
+    rBox.style.width    = '';
+    savedLeft  = 0;
+    savedWidth = 0;
+    updateSidebar();
+  });
 })();
 </script>
 
