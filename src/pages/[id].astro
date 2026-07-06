@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { articles, getArticleById, getAdjacentArticles } from '../data/articles';
+import '../styles/pages/article.css';
+
+// Local mock data for now — swap for `export async function getStaticPaths()`
+// backed by a real API call (or a server/SSR route) once one exists.
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { id: article.id } }));
+}
+
+const { id } = Astro.params;
+const article = getArticleById(id!)!;
+const { prev, next } = getAdjacentArticles(article.id);
+const shareUrl = `https://t.media/${article.id}`;
+---
+
+<BaseLayout
+  title={`${article.title} | TVBS World Taiwan`}
+  description={article.body[0]}
+  ogTitle={article.title}
+  ogDescription={article.body[0]}
+  ogImage={article.coverImage}
+  ogUrl={shareUrl}
+>
+  <div class="pg-frame">
+    <article class="pg-article article_new">
+      <div class="title_box">
+        <h1 class="title">{article.title}</h1>
+        <div class="author_box">
+          <div class="author">
+            Reporter <a href={`/news/search?q=${encodeURIComponent(article.reporter)}`}>{article.reporter}</a><br />
+            Release time：{article.publishTime}<br />
+            Last update time：{article.updateTime}
+          </div>
+          <div class="other">
+            <div class="shareBox">
+              <ul>
+                <li>
+                  <a
+                    class="fb"
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Share on Facebook"
+                  ></a>
+                </li>
+                <li>
+                  <a
+                    class="line"
+                    href={`https://social-plugins.line.me/lineit/share?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Share on LINE"
+                  ></a>
+                </li>
+                <li>
+                  <a
+                    class="x"
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Share on X"
+                  ></a>
+                </li>
+              </ul>
+            </div>
+            <div class="txtLevel">
+              <ul>
+                <li><p data-size="s">S</p></li>
+                <li><p data-size="m" class="active">M</p></li>
+                <li><p data-size="l">L</p></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="img_box">
+        <div class="img">
+          {article.videoId ? (
+            <iframe
+              title={article.title}
+              width="100%"
+              height="100%"
+              src={`https://www.youtube.com/embed/${article.videoId}`}
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          ) : (
+            <img src={article.coverImage} alt={article.title} width="1060" height="596" loading="eager" />
+          )}
+        </div>
+      </div>
+
+      <div class="article_content" id="news_detail_div">
+        {article.body.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      {(prev || next) && (
+        <div class="article_next">
+          <ul>
+            {prev && <li class="prev"><a href={`/${prev.id}`}>{prev.title}</a></li>}
+            {next && <li class="next"><a href={`/${next.id}`}>{next.title}</a></li>}
+          </ul>
+        </div>
+      )}
+    </article>
+
+    <Sidebar />
+  </div>
+</BaseLayout>
+
+<script>
+  const sizes = {
+    s: { fontSize: '16px', lineHeight: '30px' },
+    m: { fontSize: '18px', lineHeight: '32px' },
+    l: { fontSize: '20px', lineHeight: '34px' },
+  } as const;
+
+  const content = document.getElementById('news_detail_div')!;
+  const buttons = document.querySelectorAll<HTMLElement>('.txtLevel p');
+
+  function applySize(size: keyof typeof sizes) {
+    Object.assign(content.style, sizes[size]);
+    buttons.forEach((btn) => btn.classList.toggle('active', btn.dataset.size === size));
+    localStorage.setItem('articleFontSize', size);
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => applySize(btn.dataset.size as keyof typeof sizes));
+  });
+
+  const saved = localStorage.getItem('articleFontSize') as keyof typeof sizes | null;
+  if (saved && sizes[saved]) applySize(saved);
+</script>

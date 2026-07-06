@@ -1,0 +1,117 @@
+---
+import Trending from './Trending.astro';
+// Shared right-hand sidebar (Trending + GPT ad slots) — used by the
+// homepage and article detail pages so both stay visually identical.
+---
+<aside class="pg-aside">
+  <div class="r_box">
+
+    <Trending />
+
+    <!-- PC Ad 1: 300×250 -->
+    <div class="sidebar_div">
+      <!-- /21697024903/news.tvbs.com.tw_pc_index_list1 -->
+      <div class="nolazydiv" id="news_tvbs_com_tw_pc_index_list1" data-adsid="news_tvbs_com_tw_pc_index_list1">
+        <script is:inline>
+        (function() {
+          var id = 'news_tvbs_com_tw_pc_index_list1';
+          var w = document.body.clientWidth;
+          if (detectmob() && w < 1024 && id.indexOf('_m_') > -1) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
+          } else if (w >= 1024 && w < 1250 && id.indexOf('_m_') > -1 && (id.indexOf('_d') > -1 || id.indexOf('_sp') > -1 || id.indexOf('_mid') > -1 || id.indexOf('read_in') > -1 || id.indexOf('read_adult_in') > -1)) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
+          } else if (!detectmob() && w >= 1250 && id.indexOf('_pc_') > -1) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
+          } else if (detectmob() && w >= 1250 && id.indexOf('_pc_') > -1) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
+          } else if (detectmob() && w >= 1024 && id.indexOf('_pc_') > -1 && id.indexOf('_d') <= -1 && id.indexOf('_sp') <= -1 && id.indexOf('_mid') <= -1 && id.indexOf('read_in') <= -1 && id.indexOf('read_adult_in') <= -1) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
+          }
+        })();
+        </script>
+      </div>
+    </div>
+
+    <!-- PC Ad 2: 300×250 or 300×600 -->
+    <div class="sidebar_div">
+      <!-- /21697024903/news.tvbs.com.tw_pc_index_list2 -->
+      <div class="nolazydiv" id="news_tvbs_com_tw_pc_index_list2" data-adsid="news_tvbs_com_tw_pc_index_list2">
+        <script is:inline>
+        (function() {
+          var id = 'news_tvbs_com_tw_pc_index_list2';
+          var w = document.body.clientWidth;
+          if (detectmob() && w < 1024 && id.indexOf('_m_') > -1) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
+          } else if (w >= 1024 && w < 1250 && id.indexOf('_m_') > -1 && (id.indexOf('_d') > -1 || id.indexOf('_sp') > -1 || id.indexOf('_mid') > -1 || id.indexOf('read_in') > -1 || id.indexOf('read_adult_in') > -1)) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
+          } else if (!detectmob() && w >= 1250 && id.indexOf('_pc_') > -1) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
+          } else if (detectmob() && w >= 1250 && id.indexOf('_pc_') > -1) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
+          } else if (detectmob() && w >= 1024 && id.indexOf('_pc_') > -1 && id.indexOf('_d') <= -1 && id.indexOf('_sp') <= -1 && id.indexOf('_mid') <= -1 && id.indexOf('read_in') <= -1 && id.indexOf('read_adult_in') <= -1) {
+            googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
+          }
+        })();
+        </script>
+      </div>
+    </div>
+
+  </div>
+  <div class="bottom"></div>
+</aside>
+
+<script is:inline>
+(function () {
+  var aside = document.querySelector('.pg-aside');
+  var rBox  = document.querySelector('.r_box');
+  var savedLeft  = 0;
+  var savedWidth = 0;
+
+  function updateSidebar() {
+    if (window.innerWidth < 1024) return;
+    if (!rBox || !aside) return;
+
+    var article = document.querySelector('.pg-article');
+    var header  = document.querySelector('header');
+    if (!article || !header) return;
+
+    var rBoxH    = rBox.offsetHeight;
+    var headerH  = header.offsetHeight;
+    var winH     = window.innerHeight;
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var totalH   = rBoxH + headerH;
+
+    if (
+      article.offsetHeight > totalH &&
+      rBoxH > winH - headerH - 100 &&
+      scrollTop + winH >= totalH
+    ) {
+      if (rBox.style.position !== 'fixed') {
+        var rect   = aside.getBoundingClientRect();
+        savedLeft  = rect.left;
+        savedWidth = aside.offsetWidth;
+      }
+      rBox.style.position = 'fixed';
+      rBox.style.bottom   = '0';
+      rBox.style.left     = savedLeft + 'px';
+      rBox.style.width    = savedWidth + 'px';
+    } else {
+      rBox.style.position = '';
+      rBox.style.bottom   = '';
+      rBox.style.left     = '';
+      rBox.style.width    = '';
+    }
+  }
+
+  window.addEventListener('scroll', updateSidebar, { passive: true });
+  window.addEventListener('resize', function () {
+    rBox.style.position = '';
+    rBox.style.bottom   = '';
+    rBox.style.left     = '';
+    rBox.style.width    = '';
+    savedLeft  = 0;
+    savedWidth = 0;
+    updateSidebar();
+  });
+})();
+</script>

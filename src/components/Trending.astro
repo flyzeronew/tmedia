@@ -1,0 +1,23 @@
+---
+// Shared Trending list markup — rendered twice on the homepage (mobile
+// copy in the article column, desktop copy in the sidebar) and once on
+// article pages (mobile copy; the sidebar copy comes via <Sidebar />).
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<div class:list={['Trending', 'sidebar_div', className]}>
+  <div class="title_div">
+    <div class="title_line">
+      <p>Trending</p>
+    </div>
+  </div>
+  <ul>
+    <li><span>1</span><h4><a href="https://t.media/3244961" target="_blank" class="play">New Taipei releases abalone, sea urchins to restore coast</a></h4></li>
+    <li><span>2</span><h4><a href="https://t.media/3244905" target="_blank">Taiwan faces 38°C heat days after wettest June on record</a></h4></li>
+    <li><span>3</span><h4><a href="/3241614">New Taipei delegation studies waste tech in Germany</a></h4></li>
+    <li><span>4</span><h4><a href="/3240112">Buchholz: Taiwan's chip crown is both a shield and a target</a></h4></li>
+    <li><span>5</span><h4><a href="https://t.media/3238887" target="_blank">Heat wave grips Taiwan as Typhoon Mekkhala moves northward</a></h4></li>
+  </ul>
+</div>

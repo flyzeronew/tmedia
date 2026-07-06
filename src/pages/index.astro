@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Trending from '../components/Trending.astro';
 import '../styles/pages/index.css';
 
 const heroSlides = [
   {
-    href: 'https://t.media/3241614',
+    href: '/3241614',
     img: 'https://cc.t.media/img/upload/2026/06/15/20260615175208-8f4488d4.jpg',
     alt: 'New Taipei delegation studies waste tech in Germany',
     title: 'New Taipei delegation studies waste tech in Germany',
@@ -70,9 +72,9 @@ const mockPool = [
 ];
 
 const newsItems = [
-  { href: 'https://t.media/3241614', img: 'https://cc.t.media/img/_data/i/upload/2026/06/15/20260615175208-8f4488d4-xs.jpg', title: 'New Taipei delegation studies waste tech in Germany', time: '2026/06/26 17:14', videoId: 's6QuxSl3hmM' },
-  { href: 'https://t.media/3241179', img: 'https://cc.t.media/img/_data/i/upload/2025/04/22/20250422190712-9dd97463-xs.jpg', title: 'Taiwan warns of flash floods as Mekkhala and front collide', time: '2026/06/26 10:11', videoId: null },
-  { href: 'https://t.media/3240112', img: 'https://cc.t.media/img/_data/i/upload/2026/06/25/20260625094638-4904ec2d-xs.jpg', title: "Buchholz: Taiwan's chip crown is both a shield and a target", time: '2026/06/25 09:48', videoId: null },
+  { href: '/3241614', img: 'https://cc.t.media/img/_data/i/upload/2026/06/15/20260615175208-8f4488d4-xs.jpg', title: 'New Taipei delegation studies waste tech in Germany', time: '2026/06/26 17:14', videoId: 's6QuxSl3hmM' },
+  { href: '/3241179', img: 'https://cc.t.media/img/_data/i/upload/2025/04/22/20250422190712-9dd97463-xs.jpg', title: 'Taiwan warns of flash floods as Mekkhala and front collide', time: '2026/06/26 10:11', videoId: null },
+  { href: '/3240112', img: 'https://cc.t.media/img/_data/i/upload/2026/06/25/20260625094638-4904ec2d-xs.jpg', title: "Buchholz: Taiwan's chip crown is both a shield and a target", time: '2026/06/25 09:48', videoId: null },
   { href: 'https://t.media/3238887', img: 'https://cc.t.media/img/_data/i/upload/2026/06/23/20260623184621-6ff36120-xs.jpg', title: 'Heat wave grips Taiwan as Typhoon Mekkhala moves northward', time: '2026/06/23 20:56', videoId: null },
   { href: 'https://t.media/3237863', img: 'https://cc.t.media/img/_data/i/upload/2026/04/18/20260418195010-20c2fa50-xs.jpg', title: 'Typhoon Mekkhala nears Taiwan as temperatures hit 38°C', time: '2026/06/22 20:54', videoId: null },
   { href: 'https://t.media/3233814', img: 'https://cc.t.media/img/upload/2026/06/16/20260616073805-c2a08d27.jpg', title: 'Taiwan forecasts clear Dragon Boat Festival weekend skies', time: '2026/06/18 06:30', videoId: null },
@@ -115,7 +117,12 @@ const newsItems = [
         <div class="vision swiper">
           <div class="swiper-wrapper">
             {heroSlides.map((slide, i) => (
-              <a href={slide.href} class="swiper-slide vision-slide" target="_blank">
+              <a
+                href={slide.href}
+                class="swiper-slide vision-slide"
+                target={slide.href.startsWith('/') ? undefined : '_blank'}
+                rel={slide.href.startsWith('/') ? undefined : 'noopener noreferrer'}
+              >
                 <div class="img">
                   <img
                     width="1060"
@@ -136,20 +143,7 @@ const newsItems = [
         <div class="owl-dots"></div>
 
         <!-- Trending (mobile only) -->
-        <div class="Trending sidebar_div trending-mobile">
-          <div class="title_div">
-            <div class="title_line">
-              <p>Trending</p>
-            </div>
-          </div>
-          <ul>
-            <li><span>1</span><h4><a href="https://t.media/3244961" target="_blank" class="play">New Taipei releases abalone, sea urchins to restore coast</a></h4></li>
-            <li><span>2</span><h4><a href="https://t.media/3244905" target="_blank">Taiwan faces 38°C heat days after wettest June on record</a></h4></li>
-            <li><span>3</span><h4><a href="https://t.media/3241614" target="_blank">New Taipei delegation studies waste tech in Germany</a></h4></li>
-            <li><span>4</span><h4><a href="https://t.media/3240112" target="_blank">Buchholz: Taiwan's chip crown is both a shield and a target</a></h4></li>
-            <li><span>5</span><h4><a href="https://t.media/3238887" target="_blank">Heat wave grips Taiwan as Typhoon Mekkhala moves northward</a></h4></li>
-          </ul>
-        </div>
+        <Trending class="trending-mobile" />
 
         <!-- Latest News Section -->
         <div class="news_now2">
@@ -162,7 +156,11 @@ const newsItems = [
             <ul id="newsList">
               {newsItems.map((item) => (
                 <li>
-                  <a href={item.href} target="_blank">
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith('/') ? undefined : '_blank'}
+                    rel={item.href.startsWith('/') ? undefined : 'noopener noreferrer'}
+                  >
                     <div class="box">
                       <div class="img">
                         <img
@@ -197,76 +195,7 @@ const newsItems = [
     </article>
 
     <!-- Sidebar column (desktop only) -->
-    <aside class="pg-aside">
-      <div class="r_box">
-
-        <!-- Trending -->
-        <div class="Trending sidebar_div">
-          <div class="title_div">
-            <div class="title_line">
-              <p>Trending</p>
-            </div>
-          </div>
-          <ul>
-            <li><span>1</span><h4><a href="https://t.media/3244961" target="_blank" class="play">New Taipei releases abalone, sea urchins to restore coast</a></h4></li>
-            <li><span>2</span><h4><a href="https://t.media/3244905" target="_blank">Taiwan faces 38°C heat days after wettest June on record</a></h4></li>
-            <li><span>3</span><h4><a href="https://t.media/3241614" target="_blank">New Taipei delegation studies waste tech in Germany</a></h4></li>
-            <li><span>4</span><h4><a href="https://t.media/3240112" target="_blank">Buchholz: Taiwan's chip crown is both a shield and a target</a></h4></li>
-            <li><span>5</span><h4><a href="https://t.media/3238887" target="_blank">Heat wave grips Taiwan as Typhoon Mekkhala moves northward</a></h4></li>
-          </ul>
-        </div>
-
-        <!-- PC Ad 1: 300×250 -->
-        <div class="sidebar_div">
-          <!-- /21697024903/news.tvbs.com.tw_pc_index_list1 -->
-          <div class="nolazydiv" id="news_tvbs_com_tw_pc_index_list1" data-adsid="news_tvbs_com_tw_pc_index_list1">
-            <script is:inline>
-            (function() {
-              var id = 'news_tvbs_com_tw_pc_index_list1';
-              var w = document.body.clientWidth;
-              if (detectmob() && w < 1024 && id.indexOf('_m_') > -1) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
-              } else if (w >= 1024 && w < 1250 && id.indexOf('_m_') > -1 && (id.indexOf('_d') > -1 || id.indexOf('_sp') > -1 || id.indexOf('_mid') > -1 || id.indexOf('read_in') > -1 || id.indexOf('read_adult_in') > -1)) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
-              } else if (!detectmob() && w >= 1250 && id.indexOf('_pc_') > -1) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
-              } else if (detectmob() && w >= 1250 && id.indexOf('_pc_') > -1) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
-              } else if (detectmob() && w >= 1024 && id.indexOf('_pc_') > -1 && id.indexOf('_d') <= -1 && id.indexOf('_sp') <= -1 && id.indexOf('_mid') <= -1 && id.indexOf('read_in') <= -1 && id.indexOf('read_adult_in') <= -1) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list1]); });
-              }
-            })();
-            </script>
-          </div>
-        </div>
-
-        <!-- PC Ad 2: 300×250 or 300×600 -->
-        <div class="sidebar_div">
-          <!-- /21697024903/news.tvbs.com.tw_pc_index_list2 -->
-          <div class="nolazydiv" id="news_tvbs_com_tw_pc_index_list2" data-adsid="news_tvbs_com_tw_pc_index_list2">
-            <script is:inline>
-            (function() {
-              var id = 'news_tvbs_com_tw_pc_index_list2';
-              var w = document.body.clientWidth;
-              if (detectmob() && w < 1024 && id.indexOf('_m_') > -1) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
-              } else if (w >= 1024 && w < 1250 && id.indexOf('_m_') > -1 && (id.indexOf('_d') > -1 || id.indexOf('_sp') > -1 || id.indexOf('_mid') > -1 || id.indexOf('read_in') > -1 || id.indexOf('read_adult_in') > -1)) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
-              } else if (!detectmob() && w >= 1250 && id.indexOf('_pc_') > -1) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
-              } else if (detectmob() && w >= 1250 && id.indexOf('_pc_') > -1) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
-              } else if (detectmob() && w >= 1024 && id.indexOf('_pc_') > -1 && id.indexOf('_d') <= -1 && id.indexOf('_sp') <= -1 && id.indexOf('_mid') <= -1 && id.indexOf('read_in') <= -1 && id.indexOf('read_adult_in') <= -1) {
-                googletag.cmd.push(function() { googletag.display(id); googletag.pubads().refresh([news_tvbs_com_tw_pc_index_list2]); });
-              }
-            })();
-            </script>
-          </div>
-        </div>
-
-      </div>
-      <div class="bottom"></div>
-    </aside>
+    <Sidebar />
   </div>
 </BaseLayout>
 
@@ -351,61 +280,5 @@ const newsItems = [
     { rootMargin: '300px' }
   );
   scrollObserver.observe(trigger);
-</script>
-
-<script is:inline>
-(function () {
-  var aside = document.querySelector('.pg-aside');
-  var rBox  = document.querySelector('.r_box');
-  var savedLeft  = 0;
-  var savedWidth = 0;
-
-  function updateSidebar() {
-    if (window.innerWidth < 1024) return;
-    if (!rBox || !aside) return;
-
-    var article = document.querySelector('.pg-article');
-    var header  = document.querySelector('header');
-    if (!article || !header) return;
-
-    var rBoxH    = rBox.offsetHeight;
-    var headerH  = header.offsetHeight;
-    var winH     = window.innerHeight;
-    var scrollTop = window.scrollY || document.documentElement.scrollTop;
-    var totalH   = rBoxH + headerH;
-
-    if (
-      article.offsetHeight > totalH &&
-      rBoxH > winH - headerH - 100 &&
-      scrollTop + winH >= totalH
-    ) {
-      if (rBox.style.position !== 'fixed') {
-        var rect   = aside.getBoundingClientRect();
-        savedLeft  = rect.left;
-        savedWidth = aside.offsetWidth;
-      }
-      rBox.style.position = 'fixed';
-      rBox.style.bottom   = '0';
-      rBox.style.left     = savedLeft + 'px';
-      rBox.style.width    = savedWidth + 'px';
-    } else {
-      rBox.style.position = '';
-      rBox.style.bottom   = '';
-      rBox.style.left     = '';
-      rBox.style.width    = '';
-    }
-  }
-
-  window.addEventListener('scroll', updateSidebar, { passive: true });
-  window.addEventListener('resize', function () {
-    rBox.style.position = '';
-    rBox.style.bottom   = '';
-    rBox.style.left     = '';
-    rBox.style.width    = '';
-    savedLeft  = 0;
-    savedWidth = 0;
-    updateSidebar();
-  });
-})();
 </script>
 

@@ -78,17 +78,20 @@ header {
 }
 
 .share li {
+  width: 32px;
+  height: 32px; 
   list-style: none;
   background-color: #000;
-  padding: 4px;
   border-radius: 50%;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 .share img {
   display: block;
-  width: 30px;
-  height: 30px;  
+  width: 24px;
+  height: 24px;
   transition: opacity 0.2s;
 }
 
